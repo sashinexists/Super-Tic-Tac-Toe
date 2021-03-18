@@ -14,10 +14,6 @@ class Game {
         this.activeBoard = activeBoard["all"];
         this.winner = square["blank"];
     }
-
-    takeTurn(position:number) {
-        
-    }
 }
 
 export default Board;

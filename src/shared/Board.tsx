@@ -8,10 +8,6 @@ class Board {
         this.squares = new Array(9).fill(square['blank']);
         this.winner = square['blank'];
     }
-
-    takeTurn(position:number) {
-        
-    }
 }
 
 export default Board;
