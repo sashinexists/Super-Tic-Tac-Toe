@@ -15,7 +15,7 @@ export default function SuperBoard(props:Props) {
     return (
         <main className="game">
             {gameboard.map((board:Board, i:number) => {
-                return <BoardComponent key={i} boardNumber={i} board={board.squares} isOver={results[i]!==square["blank"]} isActive={activeBoard=== 9 || activeBoard===i}/>
+                return <BoardComponent key={i} boardNumber={i} board={board.squares} winner={results[i]} isActive={activeBoard=== 9 || activeBoard===i}/>
             })}
         </main>
     )

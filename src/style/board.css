@@ -22,3 +22,25 @@
 .board-active__false > .square {
     cursor:not-allowed;
 }
+
+.board-active__false > .square:hover {
+    background: #EEEEE8;
+}
+
+.board-winner__○ {
+    background: #fe5f55;
+}
+
+.board-winner__○ > .square, 
+.board-winner__○ > .square:hover {
+    background: #ffc3be;
+}
+
+.board-winner__× {
+    background: #38369A
+}
+
+.board-winner__× > .square, 
+.board-winner__× > .square:hover {
+    background: #b4b3f7
+}
