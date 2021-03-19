@@ -21,11 +21,16 @@ function App() {
   //console.log(game);
 
   function handleTurn(board: number, position: number) {
-    if (gameBoard[board].squares[position] === square['blank']) {
+    if (isValidMove(board, position)) {
       makeMove(board, position);
       setTurn(!isXTurn);
       setActiveBoard(position);
     }
+  }
+
+  function isValidMove(board: number, position:number) {
+    return gameBoard[board].squares[position] === square['blank']
+    && (board===activeBoard || 9 === activeBoard)
   }
 
 
