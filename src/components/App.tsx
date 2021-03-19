@@ -16,7 +16,6 @@ function App() {
   const [gameBoard, updateGameBoard] = useState(game.superBoard)
   const [isXTurn, setTurn] = useState(game.isXTurn)
   const [activeBoard, setActiveBoard] = useState(game.activeBoard)
-  const [gameOvers, setGameOvers] = useState(game.gameOvers);
   const [results, setResults] = useState(game.results);
 
   function handleTurn(board: number, position: number) {
@@ -36,9 +35,12 @@ function App() {
   useEffect(()=>{
     if(9!==activeBoard && gameBoard[activeBoard].winner!==square["blank"]) {
       setActiveBoard(9);
-      console.log("Active board reset!!!");
     }
   }, [activeBoard,gameBoard])
+
+  useEffect(() => {
+    checkWinner();
+  }, [gameBoard])
 
   useEffect(()=>{
     gameBoard.forEach(
@@ -46,17 +48,12 @@ function App() {
         const winner = getWinner(board);
         if (board.winner !== winner) {
           setWinner(boardNumber, winner);
-          addGameOver(boardNumber);
           updateResults(boardNumber,winner);
-          console.log(results);
         }
       }
     )
   }, [gameBoard])
 
-  function addGameOver(boardNumber:number) {
-    setGameOvers([...gameOvers,boardNumber]);
-  }
 
   function updateResults(boardNumber:number, winner:square) {
     const newResults:Array<square> = results;
@@ -123,6 +120,28 @@ function App() {
       return square["blank"];
     }
       
+  }
+
+  function checkWinner() {
+    if (results[0]===results[1]&&results[1]===results[2]&& results[2]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[3]===results[4]&&results[4]===results[5]&& results[5]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[6]===results[7]&&results[7]===results[8]&& results[8]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[0]===results[3]&&results[3]===results[6]&& results[6]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[1]===results[4]&&results[4]===results[7]&& results[7]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[2]===results[5]&&results[5]===results[8]&& results[8]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[0]===results[4]&&results[4]===results[8]&& results[8]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else if (results[2]===results[4]&&results[4]===results[6]&& results[6]!==square["blank"]) {
+      alert("The winner is "+results[0]);
+    } else {
+      console.log("hello,hello, hello");
+    }
   }
 
   const gameContextValue = {

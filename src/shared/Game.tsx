@@ -7,7 +7,6 @@ export interface Game {
     isXTurn:boolean;
     activeBoard: selectBoard;
     winner: square;
-    //gameOvers: Array<number>;
     results: Array<square>
   }
   
@@ -16,7 +15,6 @@ export interface Game {
       isXTurn:true,
       activeBoard:selectBoard["all"],
       winner:square["blank"],
-      //gameOvers:new Array<number>(),
       results: [
         square["blank"] , square["blank"] , square["blank"] , 
         square["blank"] , square["blank"] , square["blank"] , 
