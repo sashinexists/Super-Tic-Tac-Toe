@@ -1,5 +1,6 @@
 @import './board.css';
 @import './square.css';
+@import './game.css';
 
 *, *:before, *:after {
     box-sizing: border-box;

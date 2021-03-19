@@ -2,13 +2,23 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 2.5px;
+    grid-gap: 2px;
     margin: auto;
-    max-width: 90%;
-    max-height: 90%;
     background: #dcdcd0;
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     height: 210px;
     width: 210px;
+    max-height: 100%;
+    max-width: 100%;
+    border: 2px solid #dcdcd0;
+}
+
+.board-active__false {
+    opacity: 0.6; /* Real browsers */
+    filter: alpha(opacity = 10); /* MSIE */
+    filter: grayscale(50%);
+    
+}
+
+.board-active__false > .square {
+    cursor:not-allowed;
 }

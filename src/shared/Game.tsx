@@ -1,19 +1,20 @@
-import Board from './Board';
-import activeBoard from './ActiveBoard';
+import newBoard, {Board} from './Board';
+import selectBoard from './SelectBoard';
 import square from './Square';
 
-class Game {
+
+export interface Game {
     superBoard:Array<Board>;
-    isXturn:boolean;
-    activeBoard: activeBoard;
+    isXTurn:boolean;
+    activeBoard: selectBoard;
     winner: square;
+  }
+  
+  const newGame = ():Game => ({
+      superBoard:new Array(9).fill(newBoard()),
+      isXTurn:true,
+      activeBoard:selectBoard["all"],
+      winner:square["blank"]
+  })
 
-    constructor() {
-        this.superBoard = new Array(9).fill(new Board());
-        this.isXturn = true;
-        this.activeBoard = activeBoard["all"];
-        this.winner = square["blank"];
-    }
-}
-
-export default Board;
+export default newGame;

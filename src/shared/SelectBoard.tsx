@@ -1,4 +1,4 @@
-enum activeBoard {
+enum selectBoard {
     first,
     second,
     third,
@@ -11,4 +11,4 @@ enum activeBoard {
     all
 }
 
-export default activeBoard
+export default selectBoard

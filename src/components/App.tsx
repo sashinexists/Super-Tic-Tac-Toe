@@ -1,82 +1,68 @@
 import React, { useState, useEffect } from 'react'
-import Board from './Board'
+import newGame, { Game } from '../shared/Game'
 import '../style/app.css'
+import SuperBoard from './SuperBoard'
+import square from '../shared/Square'
+import { Board } from '../shared/Board'
+import selectBoard from '../shared/SelectBoard'
 
-export enum square {
-  blank = ' ',
-  x = '×',
-  o = '○',
+interface GameContextInterface {
+  handleTurn: (x: number, y:number) => void
 }
 
-const tiles: Array<square> = new Array(9).fill(square['blank'])
-const turn: Boolean = true
-
-interface BoardContextInterface {
-  handleTurn(position: number): any
-}
-
-export const BoardContext = React.createContext<BoardContextInterface | null>(
-  null,
-)
+export const GameContext = React.createContext({} as GameContextInterface)
 
 function App() {
-  const [board, setBoard] = useState(tiles)
-  const [isXsTurn, setTurn] = useState(turn)
+  const game: Game = newGame()
+  const [gameBoard, updateGameBoard] = useState(game.superBoard)
+  const [isXTurn, setTurn] = useState(game.isXTurn)
+  const [activeBoard, setActiveBoard] = useState(game.activeBoard)
+  //const [gameData, updateGame] = useState(game);
+  //console.log(game);
 
-  const boardContextValue = {
-    handleTurn,
-  }
-
-
-  function handleTurn(position: number) {
-      if(board[position]=== ' ') {
-        setTurn(!isXsTurn);
-        makeMove(position);
-      }
-  }
-
-  function makeMove(position: number) {
-    if (board[position] === ' ') {
-      
-      setBoard(() =>
-        board.map((sq, i) => {
-          if (i === position) {
-            return isXsTurn ? square['x'] : square['o']
-          } else {
-            return sq
-          }
-        }),
-      )
+  function handleTurn(board: number, position: number) {
+    if (gameBoard[board].squares[position] === square['blank']) {
+      makeMove(board, position);
+      setTurn(!isXTurn);
+      setActiveBoard(position);
     }
   }
 
-  function endGame() {
-      if (gameOver()) {
-          alert("Game end");
+
+  function makeMove(boardNumber: number, position: number):void {
+    const updatedGameBoard:Array<Board> = gameBoard.map((board,i) => {
+      if(i===boardNumber) {
+        const squares:Array<square> = updateBoard(board, position);
+        const newBoard:Board = {
+          squares: squares,
+          winner: square["blank"]
+        }
+        return newBoard;
+      } else {
+        return board;
       }
+    })
+    updateGameBoard(updatedGameBoard);
   }
 
-  function gameOver() {
-      return (board[0]===board[1]&&board[1]===board[2]&&board[2]!==' ')
-          || (board[3]===board[4]&&board[4]===board[5]&&board[5]!==' ')
-          || (board[6]===board[7]&&board[7]===board[8]&&board[8]!==' ')
-          || (board[0]===board[3]&&board[3]===board[6]&&board[6]!==' ')
-          || (board[1]===board[4]&&board[4]===board[7]&&board[7]!==' ')
-          || (board[2]===board[5]&&board[5]===board[8]&&board[8]!==' ')
-          || (board[0]===board[4]&&board[4]===board[8]&&board[8]!==' ')
-          || (board[2]===board[4]&&board[4]===board[6]&&board[6]!==' ')
-          ;
+  function updateBoard(board:Board, position:number):Array<square> {
+    return board.squares.map((sq, i) => {
+      if(i===position&&board.squares[i]===square["blank"]) {
+        return isXTurn ? square["x"] : square["o"];
+      } else {
+        return sq;
+      }
+    })
   }
 
-  useEffect(endGame, [board])
-
+  const gameContextValue = {
+    handleTurn,
+  }
 
   return (
-    <>
-      <BoardContext.Provider value={boardContextValue}>
-        <Board board={board} />
-      </BoardContext.Provider>
-    </>
+    <GameContext.Provider value={gameContextValue}>
+      <SuperBoard gameboard={gameBoard} activeBoard={activeBoard} />
+    </GameContext.Provider>
   )
 }
 

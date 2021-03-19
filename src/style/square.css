@@ -3,14 +3,16 @@
     width: 100%;
     font-size: 3rem;
     color: black;
-    background-color:grey;
     text-align:center;
     line-height:normal;
-    border-radius:2px;
     cursor:pointer;
     background-color: #EEEEE8;
     display: grid;
     place-items: center;
+}
+
+.square:hover {
+    background-color: #f7f7ee;
 }
 
 .square__symbol {

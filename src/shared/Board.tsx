@@ -1,13 +1,13 @@
-import square from './Square';
+import square from './Square'
 
-class Board {
-    squares:Array<square>;
-    winner:square;
-
-    constructor() {
-        this.squares = new Array(9).fill(square['blank']);
-        this.winner = square['blank'];
-    }
+export interface Board {
+  squares: Array<square>
+  winner: square
 }
 
-export default Board;
+const newBoard = (): Board => ({
+  squares: new Array(9).fill(square['blank']),
+  winner: square['blank'],
+})
+
+export default newBoard
